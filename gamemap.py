@@ -6,86 +6,116 @@ from items import *
 
 
 def startMap(player):
+    destination = townSquare(player)
+    
+    while True:
+        if destination == "Town Square":
+            destination = townSquare(player)
+        
+        if destination == "Dark Forest":
+            destination = toDarkForest(player, forestBoss, "Sword of Light")
+            
+        elif destination == "Castle":
+            destination = toCastle(player, Ganon)
+            
+        elif destination == "Ruins":
+            destination = toRuins(player, ruinsBoss, "Boss Key")
+        elif destination == "Desert":
+            destination = toDesert(player, desertBoss, "super potion")
+
+        
+
+
+def townSquare(player):
     paths = {
-        "Town Square": False,
+        "Town Square": True,
         "Dark Forest": True,
         "Castle": True,
         "Ruins": True,
         "Desert": True,
         "Currently": "Town Square"
     }
-    slowText("dialogues/startMap.txt")
-    print("You are Now in the town square, you may go toward the (Dark Forest) (Castle) (Ruins) or (Desert) or (map)")
+    
+    counter = 0
+    
+    if counter == 0:
+        slowText("dialogues/townsquare.txt", player)
+        print("You are Now in the town square, you may go toward the (Dark Forest) (Castle) (Ruins) or (Desert) or (map)")
    # print("You are currently in the {}".format(paths["Currently"]))
+    else :
+        print("Hello {} good to see you again. You are safe here in the Town Square".format(player.getName()))
 
-    routeToNewLocation(chooseNewLocation())
+    return chooseNewLocation(paths["Currently"])
 
 
 def toDarkForest(player, boss, item):
     paths = {
         "Town Square": True,
-        "Dark Forest": False,
+        "Dark Forest": True,
         "Castle": True,
-        "Ruins": False,
-        "Desert": False,
+        "Ruins": True,
+        "Desert": True,
         "Currently": "Dark Forest"
     }
-    slowText("dialogues/darkforest.txt")
+    slowText("dialogues/darkforest.txt", player)
     print("You are currently in the {}".format(paths["Currently"]))
 
     enemyfight = encounterEnemy(player, boss)
     if enemyfight:
-        print("made it here")
+ 
         addItemToInvetory(player, item)
         print(player.inventory)
-
-    routeToNewLocation(chooseNewLocation())
+        
+    return chooseNewLocation(paths["Currently"])
+    #routeToNewLocation(chooseNewLocation())
 
 
 def toRuins(player, boss, item):
-    def toDarkForest(player, boss, item):
-        paths = {
+    paths = {
             "Town Square": True,
-            "Dark Forest": False,
+            "Dark Forest": townSquare,
             "Castle": True,
-            "Ruins": False,
-            "Desert": False,
+            "Ruins": True,
+            "Desert": True,
             "Currently": "Dark Forest"
         }
-    slowText("dialogues/ruins.txt")
+        
+    slowText("dialogues/ruins.txt", player)
     enemyfight = encounterEnemy(player, boss)
 
     if enemyfight:
         addItemToInvetory(player, item)
         print(player.inventory)
 
-    routeToNewLocation(chooseNewLocation())
+    return chooseNewLocation(paths["Currently"])
+    #routeToNewLocation(chooseNewLocation())
 
 
 def toDesert(player, boss, item):
-    def toDarkForest(player, boss, item):
-        paths = {
+    paths = {
             "Town Square": True,
-            "Dark Forest": False,
+            "Dark Forest": True,
             "Castle": True,
-            "Ruins": False,
-            "Desert": False,
+            "Ruins": True,
+            "Desert": True,
             "Currently": "Dark Forest"
         }
-    slowText("dialogues/desert.txt")
+        
+    slowText("dialogues/desert.txt", player)
 
     enemyfight = encounterEnemy(player, boss)
     if enemyfight:
         addItemToInvetory(player, item)
         print(player.inventory)
-
-    routeToNewLocation(chooseNewLocation())
+        
+    return chooseNewLocation(paths["Currently"])
+    #routeToNewLocation(chooseNewLocation())
 
 
 # 333
 def toCastle(player, boss):
 
-    slowText("dialogues/castle.txt")
+    slowText("dialogues/castle.txt", player)
 
     if player.inventory["Boss Key"]:
         print("You may proceed to the Castle")
@@ -102,21 +132,18 @@ def toCastle(player, boss):
         enemyfight = encounterEnemy(player, boss)
 
         if enemyfight:
-            slowText("dialogues/endgame.txt")
-
+            slowText("dialogues/endgame.txt", player)
         else:
             print("You have Lost... But you are still alive...")
-
         if player.getHealth() > 0:
-            startMap(player)
+            chooseNewLocation(paths["Currently"])
         else:
             print("Game Over")
 
     else:
         print("You are not ready to proceed yet")
         time.sleep(3)
-
-        startMap(player)
+        return chooseNewLocation("Castle")
 
 
 def showMap():
@@ -124,19 +151,20 @@ def showMap():
     print(locations)
 
 
-def chooseNewLocation():
+def chooseNewLocation(currentlocation):
     map = ["Town Square", "Dark Forest", "Castle", "Ruins", "Desert"]
     counter = 0
     while True:
-        if counter > 0:
+        if counter != 0:
             print("You cannot go there! Try again!\n")
+        
+        print("{0} you are currently in {1}".format(player.getName(), currentlocation))
 
         direction = str(input("Where would you like to go? "))
         for items in map:
             if direction == items:
                 return direction
-                # routeToNewLocation(direction)
-                break
+            
             elif direction == "map":
                 print(map)
                 break
@@ -152,7 +180,5 @@ def routeToNewLocation(destination):
     elif destination == "Desert":
         toDesert(player, desertBoss, "super potion")
 
-
-slowText("dialogues/intro_dialogue.txt")
-makePlayer()
-startMap(player)
+#townSquare(player)
+#startMap(player)
