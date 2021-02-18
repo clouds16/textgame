@@ -6,11 +6,12 @@ from items import *
 from gamemap import *
 
 
-def main(user):
-    slowText("dialogues/intro_dialogue.txt")
-    makePlayer()
-    townSquare(user)
+
+def main():
+    
+    slowText("dialogues/intro_dialogue.txt", player)
+    startMap(player)
 
 
 if __name__ == "__main__":
-    main(player)
+    main()

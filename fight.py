@@ -3,6 +3,8 @@ from enemies import *
 from items import *
 import random as r
 import time
+import os 
+
 
 
 def encounterEnemy(player, enemy):
@@ -30,12 +32,12 @@ def encounterEnemy(player, enemy):
             # Player Death
             if player.getHealth() <= 0:
                 print("You have been defeated")
-                break
+                exit()
             # Enemy Defeated
             elif enemy.getHealth() <= 0:
                 print("you have defeated the boss!")
                 return True
-
+                
         elif player_choice == "i":
             useItem()
 
@@ -67,32 +69,46 @@ def runAway(player):
 
 def fightEnemy(player, enemy):
     if player.getSpeed() > enemy.getSpeed():
-        time.sleep(1)
-        enemy.takeDamage(player.getAttack())
-        print("{} uses {}".format(player.name,
-                                  player.getItem()))
-        print("{} hits {} first! {} is now at {} HP".format(
-            player.getName(), enemy.getName(), enemy.getName(), enemy.getHealth()))
-
-        player.takeDamage(enemy.getAttack())
-        print("{} uses {}".format(enemy.getName(), enemy.getAbility()))
-        print("{} Hits You Back, your health is now {}\n".format(
-            enemy.getName(), player.getHealth()))
+        time.sleep(.20)
+        
+        if checkHealth(player):
+            enemy.takeDamage(player.getAttack())
+            print("{} uses {}".format(player.name,
+                                    player.getItem()))
+            print("{} hits {} first! {} is now at {} HP".format(
+                player.getName(), enemy.getName(), enemy.getName(), enemy.getHealth()))
+            
+            if checkHealth(enemy):
+                player.takeDamage(enemy.getAttack())
+                print("{} uses {}".format(enemy.getName(), enemy.getAbility()))
+                print("{} Hits You Back, your health is now {}\n".format(
+                enemy.getName(), player.getHealth()))
 
     else:
-        time.sleep(1)
-        player.takeDamage(enemy.getAttack())
-        print("{} uses {}".format(player.name,
-                                  enemy.getName(), player.getItem()))
-        print("{} Hits You first, your health  {}".format(
-            enemy.getName(), player.getHealth()))
+        if checkHealth(enemy):
+            time.sleep(.20)
+            player.takeDamage(enemy.getAttack())
+            print("{} uses {}".format(player.name,
+                                    enemy.getName(), player.getItem()))
+        
+            print("{} Hits You first, your health  {}".format(
+                enemy.getName(), player.getHealth()))
 
-        enemy.takeDamage(player.getAttack())
-        print("{} uses {}".format(enemy.getName(), enemy.getAbility()))
-        print("{} hits {} f, {} is now at {} HP\n".format(
-            player.getName(), enemy.getName(), enemy.getName(), enemy.getHealth()))
+            if checkHealth(player):
+                enemy.takeDamage(player.getAttack())
+                print("{} uses {}".format(enemy.getName(), enemy.getAbility()))
+                print("{} hits {} f, {} is now at {} HP\n".format(
+                    player.getName(), enemy.getName(), enemy.getName(), enemy.getHealth()))
 
 
+def checkHealth(person):
+    personhealth = person.getHealth()
+    
+    if personhealth > 0 :
+        return True
+
+    
+    
 # Test Loop
 #encounterEnemy(player, forestBoss)
 # encounterEnemy(player, speeder)

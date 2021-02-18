@@ -60,17 +60,6 @@ class Player:
         return self.attack
 
 
-def makePlayer():
-
-    player_name = str(input("\n\nWhat is your name? "))
-    player_ability = str(input("What kind of abilities do you have? "))
-    player_item = str(
-        input("What kind of weapon do you use? "))
-
-    player = Player(player_name, player_ability, player_item)
-
-    print("Welcome to the world ", player.name, "may your ",
-          player.ability, "and your ", player.item, "help you in your quest")
+player = Player(str(input("Great HERO, what is your name?...")), str(input("What kind of abilities do you have?... ")), str(input("What kind of weapon do you use?... ")))
 
 
-player = Player("Cloud", "Void", "Sword")
