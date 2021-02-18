@@ -25,6 +25,7 @@ def encounterEnemy(player, enemy):
 
         # PLayer chooses to fight
         elif player_choice == "fight" or player_choice == "f":
+            time.sleep(1)
             fightEnemy(player, enemy)
             # Player Death
             if player.getHealth() <= 0:
@@ -33,7 +34,7 @@ def encounterEnemy(player, enemy):
             # Enemy Defeated
             elif enemy.getHealth() <= 0:
                 print("you have defeated the boss!")
-                break
+                return True
 
         elif player_choice == "i":
             useItem()
@@ -91,6 +92,7 @@ def fightEnemy(player, enemy):
         print("{} hits {} f, {} is now at {} HP\n".format(
             player.getName(), enemy.getName(), enemy.getName(), enemy.getHealth()))
 
+
 # Test Loop
-# encounterEnemy(player, forestBoss)
+#encounterEnemy(player, forestBoss)
 # encounterEnemy(player, speeder)

@@ -1,8 +1,8 @@
 
 class Player:
-    def __init__(self, name, feature,  item):
+    def __init__(self, name, ability,  item):
         self.name = name
-        self.feature = feature
+        self.ability = ability
         self.item = item
         self.speed = 30
         self.health = 100
@@ -13,21 +13,17 @@ class Player:
             "small potion": 20,
             "medium potion": 40,
             "speed potion": 30,
-            "Boss Key": True
-
+            "Boss Key": False
         }
 
     def getName(self):
         return self.name
 
     def getAbility(self):
-        return self.feature
+        return self.getAbility()
 
     def getItem(self):
         return self.item
-
-    def getFeature(self):
-        return self.feature
 
     def getHealth(self):
         return self.health
@@ -39,7 +35,7 @@ class Player:
         return self.attack
 
     def setAttack(self, attack):
-        self.attack = attack
+        self.attack = attack + self.attack
 
     def setSpeed(self, speed):
         self.speed = speed
@@ -67,14 +63,14 @@ class Player:
 def makePlayer():
 
     player_name = str(input("\n\nWhat is your name? "))
-    player_feature = str(input("What is your best feature? "))
+    player_ability = str(input("What kind of abilities do you have? "))
     player_item = str(
-        input("You wake up, look around you, the first thing you see is: "))
+        input("What kind of weapon do you use? "))
 
-    player = Player(player_name, player_feature, player_item)
+    player = Player(player_name, player_ability, player_item)
 
     print("Welcome to the world ", player.name, "may your ",
-          player.feature, "and your ", player.item, "help you in your quest")
+          player.ability, "and your ", player.item, "help you in your quest")
 
 
-player = Player("Cloud", "Stamina", "Sword")
+player = Player("Cloud", "Void", "Sword")
