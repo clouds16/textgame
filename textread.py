@@ -3,7 +3,7 @@ import time
 import sys
 
 
-def slowText(file):
+def slowText(file, player):
     dialogue = open(file).read().format(player.getName(),
                                         player.ability, player.item)
 
