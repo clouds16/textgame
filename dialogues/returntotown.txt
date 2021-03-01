@@ -1,0 +1,4 @@
+hello hero!
+welcome back to town!
+If you talk to the merchant, he can give you 
+useful information about the world map!
