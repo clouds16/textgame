@@ -1,0 +1,6 @@
+{0} You have completed your quest!
+You have {1} health left!
+In your Inventory you have {2} 
+
+
+Thanks for Playing!

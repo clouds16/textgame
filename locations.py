@@ -1,8 +1,7 @@
+from game import *
 from items import *
-from enemies import *
 from textread import *
 from fight import *
-from player import *
 
 
 class Map:
@@ -140,5 +139,4 @@ def startEvents(player):
         elif destination == "Desert":
             destination = mapEvents(player, desertBoss, desert)
 
-
-startEvents(player)
+# Run this script

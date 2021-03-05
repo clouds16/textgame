@@ -33,9 +33,9 @@ class Enemies:
 
 
 forestBoss = Enemies("TreeMan ", "Root Slam", "Vines", 100, 30, 10, 5)
-desertBoss = Enemies("Giant Lizard", "Tail Whip", "Vanish", 40, 50, 10, 200)
+desertBoss = Enemies("Giant Lizard", "Tail Whip", "Vanish", 80, 70, 0, 200)
 ruinsBoss = Enemies("Stone Golem", "Collosal Slam",
-                    "Bullet Punch", 160, 40, 5, 5)
+                    "Bullet Punch", 160, 35, 60, 5)
 
 
-Ganon = Enemies("Ganandorf", "Void Crush", "Slash", 120, 60, 20, 20)
+Ganon = Enemies("Ganandorf", "Void Crush", "Slash", 120, 60, 45, 60)

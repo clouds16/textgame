@@ -1,6 +1,6 @@
-from player import *
 import time
 import sys
+from player import *
 
 
 def slowText(file):

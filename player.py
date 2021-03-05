@@ -34,6 +34,15 @@ class Player:
     def getAttack(self):
         return self.attack
 
+    def getArmor(self):
+        return self.armor
+
+    def setArmor(self, armor):
+        self.armor = armor + self.armor
+
+    def getInventory(self):
+        return self.inventory
+
     def setAttack(self, attack):
         self.attack = attack + self.attack
 
@@ -54,6 +63,10 @@ class Player:
     def useSpeedPotion(self, item):
         self.speed = self.speed + item
         return self.speed
+
+    def useArmorPotion(self, item):
+        self.armor = self.armor + item
+        return self.armor
 
     def addWeapon(self, weapon):
         self.attack = self.attack + weapon

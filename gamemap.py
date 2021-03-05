@@ -8,13 +8,31 @@ from sounds import *
 ####################### Main loop to play game ################
 
 
-def straightMap(player):
-    # townSquare(player)
-    toDarkForest(player, forestBoss, "Sword of Light")
+def mainAdventure(player):
 
-    toDesert(player, desertBoss, "super potion")
-    toRuins(player, ruinsBoss, "Boss Key")
-    toCastle(player, Ganon)
+    townSquare(player)
+
+    toLocation("Dark Forest", "dialogues/darkforest.txt",
+               "sounds/darkforest.mp3", player, forestBoss, "Sword of Light")
+
+    toLocation("Desert", "dialogues/desert.txt",
+               "sounds/darkforest.mp3", player, desertBoss, "super potion")
+
+    toLocation("Ruins", "dialogues/ruins.txt",
+               "sounds/darkforest.mp3", player, ruinsBoss, "Boss Key")
+
+    toCastle(player, Ganon, "Crown of the Conqueror")
+
+
+def toLocation(maplocation, readfile, soundfile, player, boss, item):
+
+    slowText(readfile)
+    playsound(soundfile)
+    print("You are currently in the {}".format(maplocation))
+    enemyfight = encounterEnemy(player, boss)
+
+    if enemyfight:
+        addItemToInvetory(player, item)
 
 
 def townSquare(player):
@@ -23,46 +41,8 @@ def townSquare(player):
     playsound(songs["townsquare"])
 
 
-def toDarkForest(player, boss, item):
-    paths = {
-        "Currently": "Dark Forest"
-    }
-
-    slowText("dialogues/darkforest.txt")
-    print("You are currently in the {}".format(paths["Currently"]))
-    enemyfight = encounterEnemy(player, boss)
-
-    if enemyfight:
-        addItemToInvetory(player, item)
-
-
-def toRuins(player, boss, item):
-    paths = {
-        "Currently": "Dark Forest"
-    }
-    print("you are currently in the {} . it looks like we can find the key to the castle here...".format(
-        paths["Currently"]))
-    slowText("dialogues/ruins.txt")
-    enemyfight = encounterEnemy(player, boss)
-
-    if enemyfight:
-        addItemToInvetory(player, item)
-
-
-def toDesert(player, boss, item):
-    paths = {
-        "Currently": "Dark Forest"
-    }
-
-    slowText("dialogues/desert.txt")
-
-    enemyfight = encounterEnemy(player, boss)
-    if enemyfight:
-        addItemToInvetory(player, item)
-
-
 # 333
-def toCastle(player, boss):
+def toCastle(player, boss, item):
     playsound(songs["castle"])
     slowText("dialogues/castle.txt")
 
@@ -77,12 +57,16 @@ def toCastle(player, boss):
         enemyfight = encounterEnemy(player, boss)
 
         if enemyfight:
+            addItemToInvetory(player, item)
+
             slowText("dialogues/victory.txt")
             slowText("dialogues/endgame.txt")
 
         else:
             print("Game Over")
 
+    # This function was a remnant of when the player could choose where to go to first.. player could not proceed without the key from the right
+    # previous boss
     else:
         print("You are not ready to proceed yet")
         time.sleep(3)

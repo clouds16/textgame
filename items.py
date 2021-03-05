@@ -1,4 +1,6 @@
 from player import *
+from enemies import *
+from player import *
 import random
 import time
 from sounds import *
@@ -46,6 +48,12 @@ def itemEffects(itempicked):
             player.inventory[itempicked], player.getAttack()))
         removeItemFromInventory(itempicked)
 
+    elif itempicked == "potion of armor":
+        player.setArmor(player.inventory[itempicked])
+        print("You have now equipped {} , your armor is now {}".format(
+            player.inventory[itempicked], player.getArmor()))
+        removeItemFromInventory(itempicked)
+
 
 def removeItemFromInventory(item):
     player.inventory.pop(item)
@@ -68,7 +76,8 @@ items = {
     "Dagger": 25,
     "Sword of Light": 80,
     "Boots of Swiftness": 50,
-    "Boss Key": True
+    "Boss Key": True,
+    "Crown of the Conqueror": True,
 }
 
 #addItemToInvetory(player, "Bow")
